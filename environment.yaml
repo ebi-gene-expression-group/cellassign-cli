@@ -1,0 +1,21 @@
+name: abc_env_1
+#version: 0.1
+
+channels: 
+- bioconda
+- conda-forge
+- defaults
+
+
+dependencies: 
+  - r-base
+  - r-optparse  
+  - r-workflowscriptscommon
+  - r-cellassign
+ # - libpng 
+ # - r-cairo 
+  
+  - 
+
+#dependencies: 
+#- numpy
