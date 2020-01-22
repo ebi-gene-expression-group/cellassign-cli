@@ -1,6 +1,5 @@
 #!/usr/bin/env Rscript 
 
-
 suppressPackageStartupMessages(require(optparse))
 suppressPackageStartupMessages(require(workflowscriptscommon))
 #suppressPackageStartupMessages(require(caret))
@@ -16,14 +15,14 @@ option_list = list(
     default = NA,
     type = 'character',
     help = 'Path to the input SCE object in .rds format'
-  )
+  ),
   make_option(
     c("-t", "--normalised-counts-slot"),
     action = "store",
     default = "normcounts",
     type = 'character',
     help = 'Name of the slot with normalised counts matrix in SCE object. Default: normcounts'
-  )
+  ),
 
   make_option(
     c("-t", "--log-transformed-counts-slot"),
@@ -31,7 +30,7 @@ option_list = list(
     default = "logcounts",
     type = 'character',
     help = 'Name of the slot with log transformed counts matrix in SCE object. Default: logcounts'
-  )
+  ),
   
   make_option(
     c("-m", "--output-sce-object"),
@@ -40,7 +39,7 @@ option_list = list(
     type = 'character',
     help = 'Path to the output matrix object in .rds format'
   )
-  )
+)
 
 opt = wsc_parse_args(option_list)
 # read SCE
