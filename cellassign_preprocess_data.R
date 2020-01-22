@@ -46,12 +46,12 @@ opt = wsc_parse_args(option_list)
 sce = readRDS(opt$input_sce_object)
 
 # Compute CPM normalization
-if(opt$normalised_counts_slot %in% names(assays(sce))){
+if(!(opt$normalised_counts_slot %in% names(assays(sce)))){
   normcounts(sce) <- calculateCPM(sce, exprs_values = "counts")
 } 
 
 #log transformation 
-if(opt$log_transformed_counts_slot %in% names(assays(sce))){
+if(!(opt$log_transformed_counts_slot %in% names(assays(sce)))){
   logcounts(sce) <- log2(normcounts(sce)  + 1)
 }
 
