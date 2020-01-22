@@ -51,7 +51,7 @@ if(opt$normalised_counts_slot %in% names(assays(sce))){
 } 
 
 #log transformation 
-if(opt$--log-transformed-counts-slot %in% names(assays(sce))){
+if(opt$log_transformed_counts_slot %in% names(assays(sce))){
   logcounts(sce) <- log2(normcounts(sce)  + 1)
 }
 
@@ -60,4 +60,4 @@ sce <- computeSumFactors(sce, assay.type = "logcounts")
 print(sce)
 
 # save object
-saveRDS(sce, file=opt$--output-sce-object)
+saveRDS(sce, file=opt$output_sce_object)
