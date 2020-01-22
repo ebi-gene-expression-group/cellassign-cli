@@ -17,7 +17,7 @@ option_list = list(
     help = 'Path to the input SCE object in .rds format'
   ),
   make_option(
-    c("-t", "--normalised-counts-slot"),
+    c("-n", "--normalised-counts-slot"),
     action = "store",
     default = "normcounts",
     type = 'character',
@@ -25,7 +25,7 @@ option_list = list(
   ),
 
   make_option(
-    c("-t", "--log-transformed-counts-slot"),
+    c("-l", "--log-transformed-counts-slot"),
     action = "store",
     default = "logcounts",
     type = 'character',
@@ -33,7 +33,7 @@ option_list = list(
   ),
   
   make_option(
-    c("-m", "--output-sce-object"),
+    c("-o", "--output-sce-object"),
     action = "store",
     default = NA,
     type = 'character',
