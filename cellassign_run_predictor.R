@@ -1,5 +1,9 @@
 #!/usr/bin/env Rscript 
 
+#Script to run the cellassign predictor. Outputs a table with cell IDs and predicted cell labels.
+#TO DO: Maybe separate the output extraction as a different process
+#TO DO: Include more of the cellassign function as arguments (covariates, learning rate etc)
+
 suppressPackageStartupMessages(require(optparse))
 suppressPackageStartupMessages(require(workflowscriptscommon))
 suppressPackageStartupMessages(require(cellassign))
@@ -23,7 +27,6 @@ option_list = list(
     type = 'character',
     help = 'Name of the slot with normalised counts matrix in SCE object. Default: normcounts'
   ),
-
   make_option(
     c("-m", "--marker-gene-file"),
     action = "store",
@@ -31,49 +34,39 @@ option_list = list(
     type = 'character',
     help = 'Path to the binary marker gene file in .txt format'
   ),
-
   make_option(
-    c("-o", "--cell-type-labels"),
+    c("-o", "--output-labels"),
     action = "store",
     default = NA,
     type = 'character',
-    help = 'Output table with cell labels'
-  ),
-  
-  make_option(
-    c("-p", "--MLE-params"),
-    action = "store",
-    default = NA,
-    type = 'character',
-    help = 'RDS object with maximum likelihood estimates (MLE) of the prediction'
+    help = 'Output txt file with cell labels'
   )
 )
 
-opt = wsc_parse_args(option_list)
+opt = wsc_parse_args(option_list, mandatory = c("input_sce_object", "marker_gene_file", "output_labels"))
 # read SCE
-sce = readRDS(opt$input_sce_object)
+sce <- readRDS(opt$input_sce_object)
 
 #read marker gene file
-markers = read.table(opt$marker_gene_file, sep = "\t")
+markers <- read.table(opt$marker_gene_file, header = T, sep = "\t")
 
-# Compute cell size factors
-if(!(opt$normalised_counts_slot %in% names(assays(sce)))){
-   sce <- computeSumFactors(sce, exprs_values = "counts")
-}else{
-    sce <- computeSumFactors(sce, exprs_values = opt$normalised_counts_slot)
-    }
+# Extract cell size factors
 s <- sizeFactors(sce)
+
 #TO DO: check presence of covariate matrix 
 #TO DO: if present, include it in cell assign function
 
 #Compute CellAssign
+fit <- cellassign(exprs_obj = sce[rownames(markers),], 
+                  marker_gene_info = markers, 
+                  s = s, 
+                  learning_rate = 1e-2, 
+                  shrinkage = TRUE,
+                  verbose = FALSE)
 
-#It is critical that gene expression data containing only marker genes is used as input to cellassign. 
-#We do this here by subsetting the input SingleCellExperiment using the row names (gene names) of the marker matrix. 
-#This also ensures that the order of the genes in the gene expression data matches the order of the genes in the marker matrix.
 
+#Output cell labels
+cell_labels <- data.frame("cell id" = colnames(sce), "cell labels" = fit$cell_type)
 
-
-#Output_1: Cell labels
-
-#Output_2: MLE params
+#save output
+write.table(binary_markers, file = opt$output_labels, append = FALSE, sep = " ", dec = ".", row.names = FALSE, col.names = TRUE)
