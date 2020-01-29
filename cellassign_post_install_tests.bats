@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bats 
 
 # download test sce object from the link provided in package docs
