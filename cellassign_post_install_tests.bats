@@ -15,22 +15,6 @@
   
 }
 
-@test "compute sum factors" {
-    if [ "$use_existing_outputs" = 'true' ] && [ -f "$output_sce_processed" ]; then
-        skip "$output_sce_processed exists and use_existing_outputs is set to 'true'"
-    fi
-    run rm -f $output_sce_processed && cellassign_sum_factors.R\
-                        --input-sce-object $test_sce\
-                        --normalised-counts-slot $normalised_counts_slot\
-                        --output-sce-object $processed_sce
-
-    echo "status = ${status}"
-    echo "output = ${output}"
-
-    [ "$status" -eq 0 ]
-    [ -f  "$output_sce_processed" ]
-}
-
 @test "read marker file" {
     if [ "$use_existing_outputs" = 'true' ] && [ -f "$scPred_object" ]; then
         skip "$output_marker_file exists and use_existing_outputs is set to 'true'"
