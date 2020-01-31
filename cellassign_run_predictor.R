@@ -22,7 +22,7 @@ option_list = list(
   make_option(
     c("-n", "normalised_counts_slot"),
     action = "store",
-    default = NA,
+    default = "normcounts",
     type = 'character',
     help = 'Name of the slot with normalised counts matrix in SCE object. Default: normcounts'
   ),
@@ -54,6 +54,10 @@ suppressPackageStartupMessages(require(cellassign))
 
 # read SCE
 sce <- readRDS(opt$input_sce_object)
+#check normcounts present
+if(! opt$normalised_counts_slot %in% names(assay(sce))){
+  opt$normalised_counts_slot <- "counts"
+}
 
 #read marker gene file
 markers <- read.table(opt$marker_gene_file, header = T, sep = "\t")
@@ -69,6 +73,7 @@ if(is.null(s) == TRUE) print("Size facors == NULL")
 fit <- cellassign(exprs_obj = sce[rownames(markers),], 
                   marker_gene_info = markers, 
                   s = s, 
+                  sce_assay = opt$normalised_counts_slot, 
                   learning_rate = 1e-2, 
                   shrinkage = TRUE,
                   verbose = FALSE)

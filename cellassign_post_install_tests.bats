@@ -21,7 +21,7 @@
     fi
     
     run rm -f $output_marker_file &&\
-                                cellassign_read_marker_file.R\
+                                cellassign_read_filt_marker_file.R\
                                     --input-marker-file $input_marker_file\
                                     --marker-filter-field $marker_filter_field\
                                     --thres-filter $thres_filter\
