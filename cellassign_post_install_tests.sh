@@ -48,7 +48,7 @@ mkdir -p $output_dir
 ################################################################################
 export test_sce=$test_working_dir/'pollen_cpm.rds'
 export processed_sce=$output_dir/'processed_sce.rds' 
-export input_marker_file= test_markers/E-MTAB-5727.marker_genes_9.tsv
+export input_marker_file= $output_dir/'markers.tsv' #wget ftp://ftp.ebi.ac.uk/pub/databases/microarray/data/atlas/sc_experiments/E-MTAB-5727/E-MTAB-5727.marker_genes_9.tsv 
 export filtered_marker_file=$output_dir/'markers_filtered.tsv'
 export processed_marker_file=$output_dir/'markers_processed.tsv'
 export output_labels=$output_dir/'labels.txt'
