@@ -58,7 +58,7 @@ export input_marker_file=$test_working_dir/`basename $marker_test_data_url`
 ################################################################################
 
 if [ ! -e "$input_marker_file" ]; then
-    wget $test_data_url -P $test_working_dir
+    wget $marker_test_data_url -P $test_working_dir
     
 fi
 
