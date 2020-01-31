@@ -7,9 +7,6 @@
 suppressPackageStartupMessages(require(optparse))
 suppressPackageStartupMessages(require(workflowscriptscommon))
 
-
-
-
 # argument parsing 
 option_list = list(
     make_option(

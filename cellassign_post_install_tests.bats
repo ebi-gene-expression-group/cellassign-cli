@@ -36,10 +36,10 @@
 
 @test "process marker file" {
     if [ "$use_existing_outputs" = 'true' ] && [ -f "$processed_marker_file" ]; then
-        skip "$output_marker_file exists and use_existing_outputs is set to 'true'"
+        skip "$processed_marker_file exists and use_existing_outputs is set to 'true'"
     fi
 
-    run rm -f $processed_marker_file  &&\ 
+    run rm -f $processed_marker_file  &&\
                                     cellassign_process_marker_file.R\
                                         --input-sce-object $processed_sce\
                                         --input-marker-file $filtered_marker_file\
