@@ -51,7 +51,16 @@ export test_sce=$test_working_dir/'pollen_cpm.rds'
 export processed_sce=$output_dir/'pollen_cpm.rds'
 
 marker_test_data_url='ftp://ftp.ebi.ac.uk/pub/databases/microarray/data/atlas/sc_experiments/E-MTAB-5727/E-MTAB-5727.marker_genes_9.tsv'
-export input_marker_file= $test_working_dir/`basename $marker_test_data_url`
+export input_marker_file=$test_working_dir/`basename $marker_test_data_url`
+
+################################################################################
+# Fetch test data 
+################################################################################
+
+if [ ! -e "$input_marker_file" ]; then
+    wget $test_data_url -P $test_working_dir
+    
+fi
 
 export filtered_marker_file=$output_dir/'markers_filtered.tsv'
 export processed_marker_file=$output_dir/'markers_processed.tsv'
