@@ -6,10 +6,9 @@
 
 suppressPackageStartupMessages(require(optparse))
 suppressPackageStartupMessages(require(workflowscriptscommon))
-suppressPackageStartupMessages(require(cellassign))
-suppressPackageStartupMessages(require(SingleCellExperiment))
-suppressPackageStartupMessages(require(scran))
-suppressPackageStartupMessages(require(tensorflow))
+
+
+
 
 # argument parsing 
 option_list = list(
@@ -44,6 +43,15 @@ option_list = list(
 )
 
 opt = wsc_parse_args(option_list, mandatory = c("input_sce_object", "marker_gene_file", "output_labels"))
+
+#check file exists 
+if(!file.exists(opt$input_sce_object)) stop("Input SCE object does not exist.")
+if(!file.exists(opt$marker_gene_file)) stop("Input marker file does not exist.")
+
+#load packages
+suppressPackageStartupMessages(require(SingleCellExperiment))
+suppressPackageStartupMessages(require(cellassign))
+
 # read SCE
 sce <- readRDS(opt$input_sce_object)
 
@@ -52,6 +60,7 @@ markers <- read.table(opt$marker_gene_file, header = T, sep = "\t")
 
 # Extract cell size factors
 s <- sizeFactors(sce)
+if(is.null(s) == TRUE) print("Size facors == NULL")
 
 #TO DO: check presence of covariate matrix 
 #TO DO: if present, include it in cell assign function

@@ -1,3 +1,0 @@
-1k PBMCs from a Healthy Donor (v3 chemistry)
-Single Cell Gene Expression Dataset by Cell Ranger 3.0.0
-Source: https://support.10xgenomics.com/single-cell-gene-expression/datasets/3.0.0/pbmc_1k_v3?
