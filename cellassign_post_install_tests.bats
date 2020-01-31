@@ -59,7 +59,7 @@
 
     run rm -f $output_labels  &&\
                                 cellassign_run_predictor.R\
-                                    --input-sce-object $processed_sce
+                                    --input-sce-object $processed_sce\
                                     --normalised_counts_slot $normalised_counts_slot\
                                     --marker-gene-file $processed_marker_file\
                                     --output-labels $output_labels
