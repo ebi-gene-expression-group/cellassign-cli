@@ -20,7 +20,7 @@ option_list = list(
     help = 'Path to the input SCE object in .rds format'
   ),
   make_option(
-    c("-n", "normalised_counts_slot"),
+    c("-n", "--normalised_counts_slot"),
     action = "store",
     default = "normcounts",
     type = 'character',
@@ -42,7 +42,7 @@ option_list = list(
   )
 )
 
-opt = wsc_parse_args(option_list, mandatory = c("input_sce_object", "marker_gene_file", "output_labels"))
+opt <-  wsc_parse_args(option_list = option_list, mandatory = c("input_sce_object", "marker_gene_file", "output_labels"))
 
 #check file exists 
 if(!file.exists(opt$input_sce_object)) stop("Input SCE object does not exist.")

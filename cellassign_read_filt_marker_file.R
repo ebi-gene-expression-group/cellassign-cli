@@ -28,7 +28,7 @@ option_list = list(
     c("-t", "--thres-filter"),
     action = "store",
     default = 0.05,
-    type = 'character',
+    type = 'numeric',
     help = 'P value threshold to filter marker genes'
   ),
 
@@ -41,7 +41,7 @@ option_list = list(
   )
 )
 
-opt = wsc_parse_args(option_list, mandatory = c("input_marker_file", "output_marker_file"))
+opt <-  wsc_parse_args( option_list = option_list, mandatory = c("input_marker_file", "output_marker_file"))
 
 #check file exists 
 if(!file.exists(opt$input_marker_file)) stop("Input file does not exist.")

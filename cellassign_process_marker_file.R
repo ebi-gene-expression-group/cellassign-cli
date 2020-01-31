@@ -33,7 +33,7 @@ option_list = list(
   )
 )
 
-opt = wsc_parse_args(option_list, mandatory = c("input_sce_object", "input_marker_file", "output_marker_file"))
+opt <- wsc_parse_args(option_list <- option_list, mandatory = c("input_sce_object", "input_marker_file", "output_marker_file"))
 
 #check file exists 
 if(!file.exists(opt$input_sce_object)) stop("Input file does not exist.")
