@@ -35,23 +35,21 @@
 }
 
 @test "process marker file" {
-    if [ "$use_existing_outputs" = 'true' ] && [ -f "$output_marker_file" ]; then
+    if [ "$use_existing_outputs" = 'true' ] && [ -f "$processed_marker_file" ]; then
         skip "$output_marker_file exists and use_existing_outputs is set to 'true'"
     fi
 
-    run rm -f $output_marker_file  &&\ 
+    run rm -f $processed_marker_file  &&\ 
                                     cellassign_process_marker_file.R\
                                         --input-sce-object $processed_sce\
                                         --input-marker-file $filtered_marker_file\
                                         --output-marker-file $processed_marker_file 
-                                        #doubt! this is the same output name as the previous script, 
-                                        #although it is not the same file, may it affect it?
 
     echo "status = ${status}"
     echo "output = ${output}"
 
     [ "$status" -eq 0 ]
-    [ -f  "$output_marker_file" ]
+    [ -f  "$processed_marker_file" ]
 }
 
 @test "run predictor" {
