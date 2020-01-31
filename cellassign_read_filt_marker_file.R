@@ -22,7 +22,7 @@ option_list = list(
     default = "pvals_adj", 
     type = 'character',
     help = 'Field of the marker file to perform the marker genes filtering on'
-  )
+  ),
   
   make_option(
     c("-t", "--thres-filter"),
@@ -30,7 +30,7 @@ option_list = list(
     default = 0.05,
     type = 'character',
     help = 'P value threshold to filter marker genes'
-  )
+  ),
 
   make_option(
     c("-o", "--output-marker-file"),

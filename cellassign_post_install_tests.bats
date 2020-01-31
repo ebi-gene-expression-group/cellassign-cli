@@ -16,11 +16,11 @@
 }
 
 @test "read marker file" {
-    if [ "$use_existing_outputs" = 'true' ] && [ -f "$scPred_object" ]; then
-        skip "$output_marker_file exists and use_existing_outputs is set to 'true'"
+    if [ "$use_existing_outputs" = 'true' ] && [ -f "$filtered_marker_file" ]; then
+        skip "$filtered_marker_file exists and use_existing_outputs is set to 'true'"
     fi
     
-    run rm -f $output_marker_file &&\
+    run rm -f $filtered_marker_file &&\
                                 cellassign_read_filt_marker_file.R\
                                     --input-marker-file $input_marker_file\
                                     --marker-filter-field $marker_filter_field\
@@ -31,7 +31,7 @@
     echo "output = ${output}"
 
     [ "$status" -eq 0 ]
-    [ -f  "$output_marker_file" ]
+    [ -f  "$filtered_marker_file" ]
 }
 
 @test "process marker file" {
