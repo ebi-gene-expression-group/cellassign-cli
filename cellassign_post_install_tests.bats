@@ -7,9 +7,9 @@
     fi
 
     run rm -f $test_sce &&\
-                            dropletutils-read-10x-counts.R\
-                                --samples $test_data_dir\
-                                --output-object-file $output_10X_obj
+                        dropletutils-read-10x-counts.R\
+                            --samples $test_data_dir\
+                            --output-object-file $output_10X_obj
                                  
     echo "status = ${status}" #exit status
     echo "output = ${output}"
