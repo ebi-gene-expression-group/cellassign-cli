@@ -81,8 +81,8 @@ if [ ! -e "$input_marker_file" ]; then
     wget $input_marker_file -P $test_working_dir
 fi
 
-export 10X_data_dir=$test_working_dir/\
-
+export test_data_dir=$test_working_dir/\
+export output_10X_obj=$test_working_dir/"output_10X.rds"
 export filtered_marker_file=$output_dir/'markers_filtered.tsv'\
 export processed_marker_file=$output_dir/'markers_processed.tsv'\
 export output_labels=$output_dir/'labels.txt'\
