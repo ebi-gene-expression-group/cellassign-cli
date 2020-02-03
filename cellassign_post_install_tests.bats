@@ -13,8 +13,11 @@
                             --mat-url $matrix_url\
                             --barcodes-url $barcodes_url\
                             --genes-url $genes_url\
+                            --ref-metadata $ref_metadata\
                             --marker-genes-file $marker_genes_file\
+                            --ref-metadata-path $ref_metadata_path\
                             --markers-path $markers_path
+
 
     echo "status = ${status}" #exit status
     echo "output = ${output}"
