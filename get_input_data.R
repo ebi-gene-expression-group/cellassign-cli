@@ -85,7 +85,7 @@ opt = wsc_parse_args(option_list, mandatory = c("data_type", "output_10x_dir",
                                                 "mat_url", "barcodes_url", "genes_url"))
 
 out_dir = opt$output_10x_dir
-dir.create(out_dir)
+#dir.create(out_dir) #Already created by sh script
 data_type = opt$data_type
 # standard 10x direcoty structure 
 std_10x_files = c("matrix.mtx", "barcodes.tsv",  "genes.tsv")
