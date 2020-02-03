@@ -47,21 +47,40 @@ mkdir -p $output_dir
 ################################################################################
 # List tool outputs/inputs & parameters 
 ################################################################################
-export test_sce=$test_working_dir/'pollen_cpm.rds'
-export processed_sce=$test_working_dir/'pollen_cpm.rds'
+
+#export test_sce=$test_working_dir/'pollen_cpm.rds'
+#export processed_sce=$test_working_dir/'pollen_cpm.rds'
 #export processed_sce=$output_dir/'pollen_cpm.rds'
 
 
-marker_test_data_url='ftp://ftp.ebi.ac.uk/pub/databases/microarray/data/atlas/sc_experiments/E-MTAB-5727/E-MTAB-5727.marker_genes_9.tsv'
-export input_marker_file=$test_working_dir/`basename $marker_test_data_url`
+#link to downlowad files
+test_data_url='ftp://ftp.ebi.ac.uk/pub/databases/microarray/data/atlas/sc_experiments/E-MTAB-5727'
+matrix_file='E-MTAB-5727.aggregated_filtered_counts.mtx'
+barcodes_file='E-MTAB-5727.aggregated_filtered_counts.mtx_cols'
+gene_names_file='E-MTAB-5727.aggregated_filtered_counts.mtx_rows'
+marker_file='E-MTAB-5727.marker_genes_9.tsv'
+
+export input_10X_matrix=$test_working_dir/$test_data_url/$matrix_file 
+export input_10X_barcodes=$test_working_dir/$test_data_url/$barcodes_file 
+export input_10X_gene_names=$test_working_dir/$test_data_url/$gene_names_filter 
+export input_marker_file=$test_working_dir/$test_data_url/$marker_file
+
+#Now fetch the data
 
 ################################################################################
 # Fetch test data 
 ################################################################################
-
+if [ ! -e "$input_10X_matrix" ]; then
+    wget $input_10X_matrix -P $test_working_dir
+fi
+if [ ! -e "$input_10X_barcodes" ]; then
+    wget $input_10X_barcodes -P $test_working_dir
+fi
+if [ ! -e "$input_10X_gene_names" ]; then
+    wget $input_10X_gene_names -P $test_working_dir
+fi
 if [ ! -e "$input_marker_file" ]; then
-    wget $marker_test_data_url -P $test_working_dir
-    
+    wget $input_marker_file -P $test_working_dir
 fi
 
 export filtered_marker_file=$output_dir/'markers_filtered.tsv'
@@ -74,7 +93,6 @@ export output_labels=$output_dir/'labels.txt'
 export normalised_counts_slot='normcounts'
 export marker_filter_field='pvals_adj'
 export thres_filter=0.05
-
 
 ################################################################################
 # Test individual scripts

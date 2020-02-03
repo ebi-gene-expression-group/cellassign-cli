@@ -61,7 +61,7 @@ markers <- read.table(opt$marker_gene_file, header = T, sep = "\t")
 
 # Extract cell size factors
 s <- sizeFactors(sce)
-if(is.null(s) == TRUE) print("Size facors == NULL")
+if(is.null(s) == TRUE) print("Size factors == NULL")
 
 #TO DO: check presence of covariate matrix 
 #TO DO: if present, include it in cell assign function

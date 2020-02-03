@@ -6,7 +6,11 @@
         skip "$test_sce exists and use_existing_outputs is set to 'true'"
     fi
 
-    run rm -f $test_sce && get_test_data.R #remove the output when test finishes
+    run rm -f $test_sce &&\
+                                 dropletutils-read-10x-counts.R\
+                                    --samples \
+                                    --output-object-file
+                                 #remove the output when test finishes
     echo "status = ${status}" #exit status
     echo "output = ${output}"
 
