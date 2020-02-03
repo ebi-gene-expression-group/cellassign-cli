@@ -59,9 +59,9 @@ barcodes_file='E-MTAB-5727.aggregated_filtered_counts.mtx_cols'
 gene_names_file='E-MTAB-5727.aggregated_filtered_counts.mtx_rows'
 marker_file='E-MTAB-5727.marker_genes_9.tsv'
 
-export input_10X_matrix=$test_working_dir/$test_data_url/$matrix_file
-export input_10X_barcodes=$test_working_dir/$test_data_url/$barcodes_file
-export input_10X_gene_names=$test_working_dir/$test_data_url/$gene_names_filter
+export input_10X_matrix=$test_data_url/$matrix_file
+export input_10X_barcodes=$test_data_url/$barcodes_file
+export input_10X_gene_names=$test_data_url/$gene_names_filter
 
 ################################################################################
 # Fetch test data 
