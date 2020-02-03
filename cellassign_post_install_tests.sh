@@ -65,8 +65,6 @@ export input_10X_barcodes=$test_working_dir/$test_data_url/$barcodes_file
 export input_10X_gene_names=$test_working_dir/$test_data_url/$gene_names_filter 
 export input_marker_file=$test_working_dir/$test_data_url/$marker_file
 
-#Now fetch the data
-
 ################################################################################
 # Fetch test data 
 ################################################################################
@@ -82,6 +80,8 @@ fi
 if [ ! -e "$input_marker_file" ]; then
     wget $input_marker_file -P $test_working_dir
 fi
+
+export 10X_data_dir = $test_working_dir
 
 export filtered_marker_file=$output_dir/'markers_filtered.tsv'
 export processed_marker_file=$output_dir/'markers_processed.tsv'
