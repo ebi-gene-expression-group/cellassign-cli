@@ -53,44 +53,60 @@ mkdir -p $output_dir
 
 
 #link to downlowad files
-test_data_url='ftp://ftp.ebi.ac.uk/pub/databases/microarray/data/atlas/sc_experiments/E-MTAB-5727'
-matrix_file='E-MTAB-5727.aggregated_filtered_counts.mtx'
-barcodes_file='E-MTAB-5727.aggregated_filtered_counts.mtx_cols'
-gene_names_file='E-MTAB-5727.aggregated_filtered_counts.mtx_rows'
-marker_file='E-MTAB-5727.marker_genes_9.tsv'
+#test_data_url='ftp://ftp.ebi.ac.uk/pub/databases/microarray/data/atlas/sc_experiments/E-MTAB-5727'
+#matrix_file='E-MTAB-5727.aggregated_filtered_counts.mtx'
+#barcodes_file='E-MTAB-5727.aggregated_filtered_counts.mtx_cols'
+#gene_names_file='E-MTAB-5727.aggregated_filtered_counts.mtx_rows'
+#marker_file='E-MTAB-5727.marker_genes_9.tsv'
 
-export input_10X_matrix=$test_data_url/$matrix_file
-export input_10X_barcodes=$test_data_url/$barcodes_file
-export input_10X_gene_names=$test_data_url/$gene_names_filter
+#export input_10X_matrix=$test_data_url/$matrix_file
+#export input_10X_barcodes=$test_data_url/$barcodes_file
+#export input_10X_gene_names=$test_data_url/$gene_names_filter
 
 ################################################################################
 # Fetch test data 
 ################################################################################
-if [ ! -e "$input_10X_matrix" ]; then
-    wget $input_10X_matrix -P $test_working_dir
-fi
-if [ ! -e "$input_10X_barcodes" ]; then
-    wget $input_10X_barcodes -P $test_working_dir
-fi
-if [ ! -e "$input_10X_gene_names" ]; then
-    wget $input_10X_gene_names -P $test_working_dir
-fi
-if [ ! -e "$input_marker_file" ]; then
-    wget $input_marker_file -P $test_working_dir
-fi
+#if [ ! -e "$input_10X_matrix" ]; then
+#    wget $input_10X_matrix -P $test_working_dir
+#fi
+#    wget $input_10X_barcodes -P $test_working_dir
+#if [ ! -e "$input_10X_barcodes" ]; then
+#fi
+#if [ ! -e "$input_10X_gene_names" ]; then
+#    wget $input_10X_gene_names -P $test_working_dir
+#fi
+#if [ ! -e "$input_marker_file" ]; then
+#    wget $input_marker_file -P $test_working_dir
+#fi
 
-export test_data_dir=$test_working_dir
-export input_marker_file=$test_working_dir/$test_data_url/$marker_file
+#GET TEST DATA
+export data_type='reference'
+export matrix_url='https://www.ebi.ac.uk/~a_solovyev/E-MTAB-6386.expression_tpm.mtx.gz'
+export barcodes_url='https://www.ebi.ac.uk/~a_solovyev/E-MTAB-6386.expression_tpm.mtx_cols.gz'
+export genes_url='https://www.ebi.ac.uk/~a_solovyev/E-MTAB-6386.expression_tpm.mtx_rows.gz'
+#export ref_metadata='https://www.ebi.ac.uk/~a_solovyev/ref_metadata.tsv' #Not required for now
+export marker_genes_file='https://www.ebi.ac.uk/~a_solovyev/E-MTAB-6386.marker_genes_11.tsv'
+export output_10x_dir=$test_working_dir
+#export ref_metadata_path=$test_working_dir/'ref_metadata.txt' #Not required for now
+export markers_path=$test_working_dir/'markers.txt'
+
+#READ 10X DATA
+#export test_data_dir=$test_working_dir
 export output_10X_obj=$test_working_dir/"output_10X.rds"
+
+#READ MARKER FILE
+export input_marker_file=markers_path
 export filtered_marker_file=$output_dir/'markers_filtered.tsv'
+#PROCESS MARKER FILE AND RUN PREDICTOR
+export processed_sce=output_10X_obj
 export processed_marker_file=$output_dir/'markers_processed.tsv'
 export output_labels=$output_dir/'labels.txt'
 
 ### Workflow parameters
 
 export normalised_counts_slot='normcounts'
-export marker_filter_field='pvals_adj'
-export thres_filter=0.05\
+export marker_filter_field='pvals' #Note: should be "pvals_adj" but on the test data (E-MTAB-6386)
+export thres_filter=0.05
 
 ################################################################################
 # Test individual scripts

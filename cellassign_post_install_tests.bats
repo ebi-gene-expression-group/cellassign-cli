@@ -1,21 +1,43 @@
 #!/usr/bin/env bats 
 
 # download test sce object from the link provided in package docs
-@test "extract test data" {
+@test "get test data" {
     if [ "$use_existing_outputs" = 'true' ] && [ -f "$test_sce" ]; then
         skip "$test_sce exists and use_existing_outputs is set to 'true'"
     fi
 
     run rm -f $test_sce &&\
+                        get_input_data.R\
+                            --data-type $data_type\
+                            --mat-url $matrix_url\
+                            --barcodes-url $barcodes_url\
+                            --genes-url $genes_url\
+                            --marker-genes-file $marker_genes_file\
+                            --output-10x-dir $output_10x_dir\
+                            --markers-path $markers_path
+
+    echo "status = ${status}" #exit status
+    echo "output = ${output}"
+
+    [ "$status" -eq 0 ] #check if exit status = 0 . This is no error when running.
+    #[ -f  "$test_sce" ] #There is no output of this process, data is just downloaded and droped to the output_10x_dir
+}
+
+@test "read 10X data" {
+    if [ "$use_existing_outputs" = 'true' ] && [ -f "$output_10X_obj" ]; then
+        skip "$output_10X_obj exists and use_existing_outputs is set to 'true'"
+    fi
+
+    run rm -f $test_sce &&\
                         dropletutils-read-10x-counts.R\
-                            --samples $test_data_dir\
+                            --samples $output_10x_dir\
                             --output-object-file $output_10X_obj
                                  
     echo "status = ${status}" #exit status
     echo "output = ${output}"
 
     [ "$status" -eq 0 ] #check if exit status = 0 . This is no error when running.
-    [ -f  "$test_sce" ] #cheks if the file is a regular file (not a directory or device file)
+    [ -f  "$output_10X_obj" ] #cheks if the file is a regular file (not a directory or device file)
   
 }
 
