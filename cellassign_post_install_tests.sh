@@ -43,7 +43,6 @@ fi
 mkdir -p $test_working_dir
 mkdir -p $output_dir
 
-
 ################################################################################
 # List tool outputs/inputs & parameters 
 ################################################################################
@@ -60,10 +59,9 @@ barcodes_file='E-MTAB-5727.aggregated_filtered_counts.mtx_cols'
 gene_names_file='E-MTAB-5727.aggregated_filtered_counts.mtx_rows'
 marker_file='E-MTAB-5727.marker_genes_9.tsv'
 
-export input_10X_matrix=$test_working_dir/$test_data_url/$matrix_file\
-export input_10X_barcodes=$test_working_dir/$test_data_url/$barcodes_file\
-export input_10X_gene_names=$test_working_dir/$test_data_url/$gene_names_filter\
-export input_marker_file=$test_working_dir/$test_data_url/$marker_file\
+export input_10X_matrix=$test_working_dir/$test_data_url/$matrix_file
+export input_10X_barcodes=$test_working_dir/$test_data_url/$barcodes_file
+export input_10X_gene_names=$test_working_dir/$test_data_url/$gene_names_filter
 
 ################################################################################
 # Fetch test data 
@@ -81,17 +79,17 @@ if [ ! -e "$input_marker_file" ]; then
     wget $input_marker_file -P $test_working_dir
 fi
 
-export test_data_dir=$test_working_dir\
+export test_data_dir=$test_working_dir
+export input_marker_file=$test_working_dir/$test_data_url/$marker_file
 export output_10X_obj=$test_working_dir/"output_10X.rds"
-export filtered_marker_file=$output_dir/'markers_filtered.tsv'\
-export processed_marker_file=$output_dir/'markers_processed.tsv'\
-export output_labels=$output_dir/'labels.txt'\
-
+export filtered_marker_file=$output_dir/'markers_filtered.tsv'
+export processed_marker_file=$output_dir/'markers_processed.tsv'
+export output_labels=$output_dir/'labels.txt'
 
 ### Workflow parameters
 
-export normalised_counts_slot='normcounts'\
-export marker_filter_field='pvals_adj'\
+export normalised_counts_slot='normcounts'
+export marker_filter_field='pvals_adj'
 export thres_filter=0.05\
 
 ################################################################################
