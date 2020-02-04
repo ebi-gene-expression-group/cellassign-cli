@@ -74,38 +74,39 @@ mkdir -p $output_dir
 #fi
 #if [ ! -e "$input_10X_gene_names" ]; then
 #    wget $input_10X_gene_names -P $test_working_dir
-#fi
+
 #if [ ! -e "$input_marker_file" ]; then
 #    wget $input_marker_file -P $test_working_dir
 #fi
 
 #GET TEST DATA
-export data_type='reference'
-export matrix_url='https://www.ebi.ac.uk/~a_solovyev/E-MTAB-6386.expression_tpm.mtx.gz'
-export barcodes_url='https://www.ebi.ac.uk/~a_solovyev/E-MTAB-6386.expression_tpm.mtx_cols.gz'
-export genes_url='https://www.ebi.ac.uk/~a_solovyev/E-MTAB-6386.expression_tpm.mtx_rows.gz'
-#export ref_metadata='https://www.ebi.ac.uk/~a_solovyev/ref_metadata.tsv' #Not required for now
-export marker_genes_file='https://www.ebi.ac.uk/~a_solovyev/E-MTAB-6386.marker_genes_11.tsv'
+export data_type="reference"
+export test_data_url='ftp://ftp.ebi.ac.uk/pub/databases/microarray/data/atlas/sc_experiments/E-MTAB-5727/'
+export matrix_url=$test_data_url/'E-MTAB-5727.expression_tpm.mtx.gz'
+export barcodes_url=$test_data_url/'E-MTAB-5727.expression_tpm.mtx_cols.gz'
+export genes_url=$test_data_url/'E-MTAB-5727.expression_tpm.mtx_rows.gz'
+export ref_metadata=$test_data_url/'E-MTAB-5727.condensed-sdrf.tsv' #Not required for now
+export marker_genes_file=$test_data_url/'E-MTAB-5727.marker_genes_9.tsv'
+
 export output_10x_dir=$test_working_dir
-#export ref_metadata_path=$test_working_dir/'ref_metadata.txt' #Not required for now
+export ref_metadata_path=$test_working_dir/'ref_metadata.txt' #Not required for now
 export markers_path=$test_working_dir/'markers.txt'
 
 #READ 10X DATA
 #export test_data_dir=$test_working_dir
-export output_10X_obj=$test_working_dir/"output_10X.rds"
-
+export output_10X_obj=$test_working_dir/'output_10X.rds'
 #READ MARKER FILE
-export input_marker_file=markers_path
+export input_marker_file=$markers_path
 export filtered_marker_file=$output_dir/'markers_filtered.tsv'
 #PROCESS MARKER FILE AND RUN PREDICTOR
-export processed_sce=output_10X_obj
+export processed_sce=$output_10X_obj
 export processed_marker_file=$output_dir/'markers_processed.tsv'
 export output_labels=$output_dir/'labels.txt'
 
 ### Workflow parameters
 
 export normalised_counts_slot='normcounts'
-export marker_filter_field='pvals' #Note: should be "pvals_adj" but on the test data (E-MTAB-6386)
+export marker_filter_field='pvals_adj' #Note: should be "pvals_adj" but on the test data (E-MTAB-6386)
 export thres_filter=0.05
 
 ################################################################################
