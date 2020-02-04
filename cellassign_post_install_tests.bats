@@ -6,7 +6,7 @@
         skip "$markers_path exists and use_existing_outputs is set to 'true'"
     fi
 
-    run rm -f $test_sce &&\
+    run rm -f $markers_path &&\
                         get_input_data.R\
                             --data-type $data_type\
                             --output-10x-dir $output_10x_dir\
@@ -23,7 +23,7 @@
     echo "output = ${output}"
 
     [ "$status" -eq 0 ] #check if exit status = 0 . This is no error when running.
-    #[ -f  "$markers_path" ] #There is no output of this process, data is just downloaded and droped to the output_10x_dir
+    [ -f  "$markers_path" ] #There is no output of this process, data is just downloaded and droped to the output_10x_dir
 }
 
 @test "read 10X data" {

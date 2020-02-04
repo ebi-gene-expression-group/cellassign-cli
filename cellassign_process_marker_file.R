@@ -44,14 +44,17 @@ sce <- readRDS(opt$input_sce_object)
 #read marker file
 markers <- read.table(opt$input_marker_file, sep = "\t", header = T)
 
+#Filter markers not present in sce rownames - Critical! 
+#This also ensures that the order of the genes in the gene expression data matches the order of the genes in the marker matrix.
+markers <- markers[markers$names == intersect(markers$names, rownames(sce)), ]
+
 #convert to cellassign required format (binary matrix: genes x cell_types/groups)
 binary_markers <- table(markers$names, markers$groups)
 
-#Filter markers not present in sce rownames - Critical! 
-#This also ensures that the order of the genes in the gene expression data matches the order of the genes in the marker matrix.
-markers <- markers[rownames(markers) %in% rownames(sce), ]
+#remove markers that are not assigned to any group
+binary_markers <- binary_markers[apply(binary_markers, 1, FUN= function(x) sum(x) > 0), ]
 
 #save cellassign marker gene file
-write.table(binary_markers, file = opt$output_marker_file, sep = "\t")
+write.table(x = binary_markers, file = opt$output_marker_file, sep = "\t")
 
 

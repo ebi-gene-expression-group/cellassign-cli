@@ -26,7 +26,7 @@ option_list = list(
   make_option(
     c("-m", "--marker-gene-file"),
     action = "store",
-    default = NA,
+    default = NULL,
     type = 'character',
     help = 'Path to the binary marker gene file in .txt format'
   ),
@@ -45,20 +45,17 @@ opt <-  wsc_parse_args(option_list = option_list, mandatory = c("input_sce_objec
 if(!file.exists(opt$input_sce_object)) stop("Input SCE object does not exist.")
 if(!file.exists(opt$marker_gene_file)) stop("Input marker file does not exist.")
 
-#load packages
-suppressPackageStartupMessages(require(SingleCellExperiment))
-suppressPackageStartupMessages(require(cellassign))
 
 # read SCE
+suppressPackageStartupMessages(require(SingleCellExperiment))
 sce <- readRDS(opt$input_sce_object)
-#check normcounts present
+#if normalised_counts_slot not present, use counts as assay to infer cell type
 if(! opt$normalised_counts_slot %in% names(assay(sce))){
   opt$normalised_counts_slot <- "counts"
 }
 
 #read marker gene file
 markers <- read.table(opt$marker_gene_file, header = T, sep = "\t")
-
 # Extract cell size factors
 s <- sizeFactors(sce)
 if(is.null(s) == TRUE) print("Size factors == NULL")
@@ -67,6 +64,8 @@ if(is.null(s) == TRUE) print("Size factors == NULL")
 #TO DO: if present, include it in cell assign function
 
 #Compute CellAssign
+suppressPackageStartupMessages(require(cellassign))
+
 fit <- cellassign(exprs_obj = sce[rownames(markers),], 
                   marker_gene_info = markers, 
                   s = s, 

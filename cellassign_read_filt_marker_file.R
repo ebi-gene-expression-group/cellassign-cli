@@ -58,6 +58,5 @@ markers <- markers[markers[[opt$marker_filter_field]] < opt$thres_filter, ]
 if(nrow(markers) == 0)print("Marker gene file has: 0 genes!")
 
 print(paste0("There are: ", nrow(markers) , "in the output marker gene file"))
-
 #Save processed marker file
-write.table(markers, opt$output_marker_file, sep= "\t")
+write.table(x = markers, file = opt$output_marker_file, sep= "\t", row.names = T, col.names = T)
